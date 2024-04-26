@@ -1,0 +1,79 @@
+.bg-poke {
+    /* background: rgba(0, 0, 0, .9) url('../../assets/bg-poke.png') left bottom no-repeat; */
+    /* background-image: linear-gradient(to right, rgba(0, 0, 0, 0.01), rgba(0, 0, 0, 0.2)), url('../../assets/bg-poke.png'); */
+    background-size: contain;
+    background-repeat: no-repeat;
+}
+
+.bg-poke .grass {
+    background-color: rgb(22 101 52);
+}
+
+.bg-poke .poison {
+    background-color: rgb(117, 51, 224);
+}
+
+.bg-poke .fire {
+    background-color: rgb(153 27 27);
+}
+
+.bg-poke .water {
+    background-color: rgb(30 64 175);
+}
+
+.bg-poke .bug {
+    background-color: rgb(77 124 15);
+}
+
+.bg-poke .flying {
+    background-color: rgb(96 165 250);
+}
+
+.bg-poke .normal {
+    background-color: rgb(161 161 170);
+}
+
+.bg-poke .electric {
+    background-color: rgb(226, 161, 21);
+}
+
+.bg-poke .ground {
+    background-color: rgb(120 53 15);
+}
+
+.bg-poke .fairy {
+    background-color: rgb(212, 32, 107);
+}
+
+.bg-poke .ghost {
+    background-color: rgb(64, 12, 66);
+}
+
+.bg-poke .psychic {
+    background-color: rgb(239, 65, 121);
+}
+
+/*  rgb(80,96,225)  */
+.bg-poke .dark {
+    background-color: rgb(98, 77, 78);
+}
+
+.bg-poke .rock {
+    background-color: rgb(175, 169, 129);
+}
+
+.bg-poke .dragon {
+    background-color: rgb(80, 96, 225);
+}
+
+.bg-poke .fighting {
+    background-color: rgb(255, 128, 0);
+}
+
+.bg-poke .ice {
+    background-color: rgb(61, 206, 243);
+}
+
+.bg-poke .steel {
+    background-color: rgb(106, 108, 108);
+}
