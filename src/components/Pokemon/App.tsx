@@ -1,8 +1,6 @@
 import { useEffect, useState } from "react";
-// import { PokemonType } from "../types/PokemonType"
 import { getPokemonInfo } from "../../data/api";
 import { PokemonType } from "../../types/PokemonType";
-// import bgImage from '../assets/bg-poke.png'
 import './styles.css'
 
 type Props = {
@@ -15,13 +13,12 @@ export const Pokemon = ({ url }: Props) => {
     const [error, setError] = useState(false);
 
     const LoadPokemon = async (fullURL: string) => {
-        // const id = fullURL.substr(0, fullURL.indexOf('pokemon/'));
         setLoading(true);
         const id = fullURL.substring(34, 39).replace('/', '');
-
         const json = await getPokemonInfo(id);
-        // settimeout(() => { setLoading(false) }, 5000);
+
         setTimeout(() => {
+            //timeout to loading
             setLoading(false);
         }, 1000);
 
@@ -34,12 +31,10 @@ export const Pokemon = ({ url }: Props) => {
         LoadPokemon(url);
     }, []);
 
-
     return (
         <>
             {loading &&
                 <div className="w-80 h-52 rounded-xl flex items-center justify-center bg-gradient-to-r from-zinc-900/90 to-zinc-950/70 animate-pulse "> Carregando... </div>
-                // <div className="w-full h-16 border border-gray-700 rounded mb-3 bg-gradient-to-r from-gray-900 to-gray-950 animate-pulse">  </div>
             }
             {!loading &&
                 <div className={`p-3 rounded-xl h-full bg-poke bg-zinc-800 hover:scale-105 hover:shadow-2xl transition-all duration-300 cursor-pointer `}>
@@ -52,7 +47,6 @@ export const Pokemon = ({ url }: Props) => {
                                 <h4 className="text-2xl capitalize">{pokeInfo.name}</h4>
                                 <p className="capitalize text-white">
                                     {pokeInfo.types.map((type, key) => (
-                                        // <span key={key}>{[...unionTypes, type.type.name, ' ']}</span>
                                         <span key={key} className={`block my-2 w-max rounded p-1 px-2 shadow-lg ${type.type.name} }`}>{type.type.name}</span>
                                     ))}
                                 </p>
@@ -64,9 +58,6 @@ export const Pokemon = ({ url }: Props) => {
 
                         </div>
                     }
-                    {/* {!error && !pokeInfo &&
-                        <div className="w-80 h-52 flex items-center justify-center">  </div>
-                    } */}
                 </div >
             }
         </>

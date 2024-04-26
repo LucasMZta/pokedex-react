@@ -13,7 +13,7 @@ function App() {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(false);
   const [search, setSearch] = useState('');
-  const [initial, setInitial] = useState(0);
+  const initial = 0;
   const [limit, setLimit] = useState(50);
 
   useEffect(() => {
