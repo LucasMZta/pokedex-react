@@ -35,6 +35,12 @@
     }
 
     .bg-poke {
+        width: 19rem;
+    }
+}
+
+@media (min-width: 1100px) {
+    .bg-poke {
         width: 20rem;
     }
 }

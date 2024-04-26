@@ -57,9 +57,9 @@ function App() {
   return (
     <div className='bg-zinc-950/90 min-h-screen text-white'>
       <div className='mx-auto px-6 lg:px-16 min-h-screen'>
-        <header className='flex justify-between items-center py-8'>
+        <header className='flex flex-col md:flex-row justify-between items-center py-8'>
           <h2 className='text-4xl py-5'>Pokedex</h2>
-          <div className='w-72 lg:w-86'>
+          <div className='w-full md:w-86'>
             <input type="text" placeholder='Buscar Pokemon' className='bg-zinc-950 w-full p-3 px-5 focus:outline-double outline-blue-600 border-none rounded-md' value={search} onChange={handleSearch} />
           </div>
         </header>
@@ -131,8 +131,9 @@ function App() {
         }
       </div>
 
-      <footer className='mx-auto py-6'>
-        <p>Desenvolvido por Lucas Martins. </p>
+      <footer className='mx-auto py-6 px-6 lg:px-16'>
+        <p> Desenvolvido por <a href='https://lucasdevs.com' className='text-blue-600' target='_blank'>Lucas Martins</a> | © 2024 - Todos os direitos reservados. </p>
+
       </footer>
     </div>
   )
