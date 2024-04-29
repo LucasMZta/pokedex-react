@@ -6,13 +6,20 @@ export type UrlType = {
 export type PokemonType = {
     id: string;
     name: string;
-    types: [{ type: { name: string } }]
-    // url: string;
+    types: [{ type: { name: string } }];
+    height: number;
+    weight: number;
+    base_experience: string;
     sprites: {
         other: {
             dream_world: {
                 front_default: string;
             }
         }
-    }
+    };
+    stats: [{
+        base_stat: number;
+        effort: number;
+        stat: { name: string; }
+    }]
 }

@@ -3,8 +3,6 @@ import './App.css'
 import { getAllPokemons } from './data/api'
 import { UrlType } from './types/PokemonType';
 import { Pokemon } from './components/Pokemon/App';
-// import { Pokemon } from './components/Pokemon';
-
 
 function App() {
 
@@ -37,14 +35,12 @@ function App() {
   }
 
   const handleLoadMorePokemon = () => {
-    // setOffset(offset + limit);
     setLimit(limit + 50);
     loadPokemons();
   }
 
   const handleSearch = (e: React.ChangeEvent<HTMLInputElement>) => {
     const filteredPokemons = [];
-    // if (e.target.value) {
     for (const i in pokemons) {
       if (pokemons[i].name.includes(e.target.value.toLowerCase().trim())) {
         filteredPokemons.push(pokemons[i]);
@@ -59,12 +55,10 @@ function App() {
       <div className='mx-auto px-6 lg:px-16 min-h-screen'>
         <header className='flex flex-col md:flex-row justify-between items-center py-8'>
           <h2 className='text-4xl py-5'>Pokedex</h2>
-          <div className='w-full md:w-86'>
+          <div className='w-full md:w-96 '>
             <input type="text" placeholder='Buscar Pokemon' className='bg-zinc-950 w-full p-3 px-5 focus:outline-double outline-blue-600 border-none rounded-md' value={search} onChange={handleSearch} />
           </div>
         </header>
-
-        {/* <button className='bg-red-600 p-3' onClick={loadPokemons}>Carregar</button> */}
         {loading && //enquanto loading = true
           <div className="flex-1 flex justify-center items-center text-5xl">
 
@@ -112,20 +106,6 @@ function App() {
               <div className='flex-1 flex justify-center items-center text-5xl'>
                 Erro...tente novamente mais tarde!
               </div>
-            }
-          </>
-        }
-
-
-        {!error && // caso não tenha error
-          <>
-            {!loading &&
-              <>
-                {/* <p className="py-4">Total de Posts: {posts.length} </p> */}
-
-
-
-              </>
             }
           </>
         }
