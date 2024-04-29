@@ -17,9 +17,12 @@ export type PokemonType = {
             }
         }
     };
-    stats: [{
-        base_stat: number;
-        effort: number;
-        stat: { name: string; }
-    }]
+    stats: [
+        { base_stat: number; effort: number; stat: { name: string; } },
+        { base_stat: number; effort: number; stat: { name: string; } },
+        { base_stat: number; effort: number; stat: { name: string; } },
+        { base_stat: number; effort: number; stat: { name: string; } },
+        { base_stat: number; effort: number; stat: { name: string; } },
+        { base_stat: number; effort: number; stat: { name: string; } }
+    ]
 }

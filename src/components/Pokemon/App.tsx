@@ -85,11 +85,11 @@ export const Pokemon = ({ url }: Props) => {
                                             </p>
                                             <div className="w-full flex justify-between px-4">
                                                 <div className="flex-1 text-center border-r-2 border-zinc-600 ">
-                                                    <p className="text-xl text-white py-2">{(pokeInfo.height / 10).toFixed(2).replace('.', ',')} m </p>
+                                                    <p className="text-xl text-white py-2">{(pokeInfo.height / 10).toFixed(1).replace('.', ',')} m </p>
                                                     <span>Height</span>
                                                 </div>
                                                 <div className="flex-1 text-center border-r-2 border-zinc-600">
-                                                    <p className="text-xl text-white py-2"> {(pokeInfo.weight / 10).toFixed(2).replace('.', ',')} kg </p>
+                                                    <p className="text-xl text-white py-2"> {(pokeInfo.weight / 10).toFixed(1).replace('.', ',')} kg </p>
                                                     <span>Weight</span>
                                                 </div>
                                                 <div className="flex-1 text-center">
