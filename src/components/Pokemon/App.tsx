@@ -1,8 +1,11 @@
 import { useEffect, useState } from "react";
-import { getPokemonInfo } from "../../data/api";
+import { getEvolves, getPokemonInfo } from "../../data/api";
 import { PokemonType } from "../../types/PokemonType";
 import './styles.css'
 import { Dialog, DialogContent, DialogDescription, DialogHeader, DialogTitle, DialogTrigger } from "../ui/dialog";
+import { PokemonEvolves } from "@/types/PokemonEvolves";
+// import { PokemonEvolvesImg } from "@/types/PokemonEvolvesImg";
+import { FormatEvolution } from "@/utils/FormatEvolution";
 
 type Props = {
     url: string;
@@ -13,6 +16,9 @@ export const Pokemon = ({ url }: Props) => {
     const [loading, setLoading] = useState(false);
     const [error, setError] = useState(false);
     const [showPokemonDetail, setShowPokemonDetail] = useState(false);
+    const [open, setOpen] = useState(false);
+    const [currentEvolve, setCurrentEvolte] = useState<PokemonEvolves>();
+    // const [currentImage, setCurrentImage] = useState<PokemonEvolvesImg>()
 
     const LoadPokemon = async (fullURL: string) => {
         setLoading(true);
@@ -29,13 +35,30 @@ export const Pokemon = ({ url }: Props) => {
         setPokeInfo(json);
     }
 
+    const loadEvolution = async (fullURL: string) => {
+        if (open) {
+            const id = fullURL.substring(34, 39).replace('/', '');
+            const json = await getEvolves(id);
+            console.log(json);
+            setCurrentEvolte(json);
+        }
+    }
+
     useEffect(() => {
         LoadPokemon(url);
     }, []);
 
+    useEffect(() => {
+        loadEvolution(url)
+    }, [open])
+
     const handlePokeInfo = () => {
         setShowPokemonDetail(!showPokemonDetail);
     }
+
+    // const handlePokemonPicture = (name: string) => {
+    //     const picture = getPokemonPicture(name);
+    // }
 
     return (
         <>
@@ -49,7 +72,7 @@ export const Pokemon = ({ url }: Props) => {
                     }
                     {!error && pokeInfo &&
                         <>
-                            <Dialog>
+                            <Dialog open={open} onOpenChange={setOpen} >
                                 <DialogTrigger>
                                     <div className="flex p-3 h-ful">
                                         <div className="flex-1">
@@ -66,9 +89,9 @@ export const Pokemon = ({ url }: Props) => {
                                         </div>
                                     </div>
                                 </DialogTrigger>
-                                <DialogContent className="bg-zinc-800 text-white border-none w-80 sm:w-96 p-0 rounded overflow-hidden text-xl">
+                                <DialogContent className="bg-zinc-800 text-white border-none max-h-screen my-3 overflow-y-auto w-80 sm:w-2/3 p-0 rounded text-xl">
                                     <DialogHeader>
-                                        <DialogTitle className={`flex flex-col py-6 items-center ${pokeInfo.types[0].type.name} rounded-b-3xl`}>
+                                        <DialogTitle className={`flex flex-col py-6 items-center rounded-b-3xl`}>
                                             <div className="flex justify-between w-full p-4 ">
                                                 <h2 className="text-2xl capitalize">{pokeInfo.name}</h2>
                                                 <span className="font-semibold text-xl">#{pokeInfo.id}</span>
@@ -128,6 +151,51 @@ export const Pokemon = ({ url }: Props) => {
                                                     </div>
                                                 </div>
                                             </div>
+                                            {currentEvolve &&
+                                                <>
+                                                    <h3 className="text-xl text-white pt-6 py-2">Evolution</h3>
+                                                    <div className="w-full text-white text-center px-4 pt-4 pb-8 flex flex-wrap gap-2 justify-around text-xl">
+                                                        <>
+                                                            <div className="flex flex-col items-center justify-between">
+                                                                <img src={`https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/dream-world/${currentEvolve.chain.species.url.substring(42, 47).replace('/', '')}.svg`} className="h-14" />
+                                                                <h4 className="capitalize">{currentEvolve.chain.species.name}</h4>
+                                                                <p>{currentEvolve.chain.species.url.substring(42, 47).replace('/', '')}</p>
+                                                            </div>
+                                                            {currentEvolve.chain.evolves_to.length > 0 &&
+                                                                currentEvolve.chain.evolves_to.map((evol1, key) => (
+                                                                    <>
+                                                                        <FormatEvolution data={evol1.evolution_details[key]} />
+                                                                        <div key={key} className="flex flex-col items-center justify-between">
+                                                                            <img src={`https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/dream-world/${evol1.species.url.substring(42, 47).replace('/', '')}.svg`} className="h-14" />
+                                                                            <h4 className="capitalize">{evol1.species.name}</h4>
+                                                                            <p>{evol1.species.url.substring(42, 47).replace('/', '')}</p>
+                                                                        </div>
+                                                                        {evol1.evolves_to.length > 0 &&
+                                                                            evol1.evolves_to.map((evol2, key) => (
+                                                                                <>
+                                                                                    <FormatEvolution data={evol2.evolution_details[key]} />
+                                                                                    <div key={key} className="flex flex-col items-center justify-between">
+                                                                                        <img src={`https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/dream-world/${evol2.species.url.substring(42, 47).replace('/', '')}.svg`} className="h-14" />
+                                                                                        <h4 className="capitalize py-1">{evol2.species.name}</h4>
+                                                                                        <p>{evol2.species.url.substring(42, 47).replace('/', '')}</p>
+                                                                                    </div >
+                                                                                </>
+                                                                            ))
+                                                                        }
+                                                                    </>
+
+                                                                ))
+                                                            }
+                                                        </>
+                                                    </div>
+                                                </>
+                                            }
+                                            {!currentEvolve &&
+                                                <div className="w-full text-center px-4">
+                                                    <h3 className="text-xl text-white pt-6 py-2">No Evolutions</h3>
+                                                </div>
+                                            }
+
                                         </DialogDescription>
                                     </DialogHeader>
                                 </DialogContent>

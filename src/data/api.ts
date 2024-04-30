@@ -8,7 +8,7 @@ const http = axios.create({
 export const getAllPokemons = async () => {
     const response = await http.get(`/pokemon`, { params: { offset: 0, limit: 1302 } });
     // const response = await http.get(`/pokemon`);
-    console.log(response);
+    // console.log(response);
     return response.data.results;
 }
 
@@ -18,4 +18,26 @@ export const getPokemonInfo = async (id: string) => {
     if (!response.data) return false;
 
     return response.data;
+}
+
+export const getEvolves = async (id: string) => {
+    const evolveUrl = await http.get(`/pokemon-species/${id}/`);
+
+    if (!evolveUrl.data.evolution_chain.url) return false;
+
+    const response = await axios.get(evolveUrl.data.evolution_chain.url);
+
+    if (!response.data) return false;
+
+    return response.data;
+}
+
+export const getPokemonPicture = async (name: string) => {
+    const response = await http.get(`/pokemon-form/${name}`);
+
+    if (!response.data) return false;
+
+    return response.data;
+
+
 }
