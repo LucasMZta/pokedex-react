@@ -89,19 +89,19 @@ export const Pokemon = ({ url }: Props) => {
                                         </div>
                                     </div>
                                 </DialogTrigger>
-                                <DialogContent className="bg-zinc-800 text-white border-none max-h-screen my-3 overflow-y-auto w-80 sm:w-2/3 p-0 rounded text-xl">
+                                <DialogContent className="bg-zinc-800 text-white border-none max-h-screen my-3 overflow-y-auto w-11/12 sm:w-2/3 p-0 rounded text-xl">
                                     <DialogHeader>
-                                        <DialogTitle className={`flex flex-col py-6 items-center rounded-b-3xl`}>
+                                        <DialogTitle className={`flex flex-col pt-6 items-center rounded-b-3xl`}>
                                             <div className="flex justify-between w-full p-4 ">
                                                 <h2 className="text-2xl capitalize">{pokeInfo.name}</h2>
                                                 <span className="font-semibold text-xl">#{pokeInfo.id}</span>
                                             </div>
-                                            <div className="w-full flex items-center justify-center px-4">
-                                                <img src={pokeInfo.sprites.other.dream_world.front_default} className="drop-shadow-[2px_6px_1px_rgba(0,0,0,0.3)] w-36 sm:w-40" />
+                                            <div className="w-full flex items-center justify-center px-4 max-h-40">
+                                                <img src={pokeInfo.sprites.other.dream_world.front_default} className="drop-shadow-[2px_6px_1px_rgba(0,0,0,0.3)] max-w-36 sm:max-w-40" />
                                             </div>
                                         </DialogTitle>
                                         <DialogDescription className={`flex flex-col justify-center items-center`}>
-                                            <p className="capitalize text-white bg-poke flex justify-around text-xl py-3">
+                                            <p className="capitalize text-white bg-poke flex justify-around text-xl pb-3">
                                                 {pokeInfo.types.map((type, key) => (
                                                     <span key={key} className={`block my-2 w-max rounded-lg p-1 px-2 shadow-lg ${type.type.name} }`}>{type.type.name}</span>
                                                 ))}
@@ -154,12 +154,12 @@ export const Pokemon = ({ url }: Props) => {
                                             {currentEvolve &&
                                                 <>
                                                     <h3 className="text-xl text-white pt-6 py-2">Evolution</h3>
-                                                    <div className="w-full text-white text-center px-4 pt-4 pb-8 flex flex-wrap gap-2 justify-around text-xl">
+                                                    <div className="w-full text-white text-center px-4 pt-4 pb-8 flex flex-wrap gap-2 justify-around text-base md:text-xl">
                                                         <>
                                                             <div className="flex flex-col items-center justify-between">
                                                                 <img src={`https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/dream-world/${currentEvolve.chain.species.url.substring(42, 47).replace('/', '')}.svg`} className="h-14" />
                                                                 <h4 className="capitalize">{currentEvolve.chain.species.name}</h4>
-                                                                <p>{currentEvolve.chain.species.url.substring(42, 47).replace('/', '')}</p>
+                                                                <span> #{currentEvolve.chain.species.url.substring(42, 47).replace('/', '')} </span>
                                                             </div>
                                                             {currentEvolve.chain.evolves_to.length > 0 &&
                                                                 currentEvolve.chain.evolves_to.map((evol1, key) => (
@@ -168,7 +168,7 @@ export const Pokemon = ({ url }: Props) => {
                                                                         <div key={key} className="flex flex-col items-center justify-between">
                                                                             <img src={`https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/dream-world/${evol1.species.url.substring(42, 47).replace('/', '')}.svg`} className="h-14" />
                                                                             <h4 className="capitalize">{evol1.species.name}</h4>
-                                                                            <p>{evol1.species.url.substring(42, 47).replace('/', '')}</p>
+                                                                            <span>#{evol1.species.url.substring(42, 47).replace('/', '')}</span>
                                                                         </div>
                                                                         {evol1.evolves_to.length > 0 &&
                                                                             evol1.evolves_to.map((evol2, key) => (
@@ -177,7 +177,7 @@ export const Pokemon = ({ url }: Props) => {
                                                                                     <div key={key} className="flex flex-col items-center justify-between">
                                                                                         <img src={`https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/dream-world/${evol2.species.url.substring(42, 47).replace('/', '')}.svg`} className="h-14" />
                                                                                         <h4 className="capitalize py-1">{evol2.species.name}</h4>
-                                                                                        <p>{evol2.species.url.substring(42, 47).replace('/', '')}</p>
+                                                                                        <span>#{evol2.species.url.substring(42, 47).replace('/', '')}</span>
                                                                                     </div >
                                                                                 </>
                                                                             ))
