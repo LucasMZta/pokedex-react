@@ -6,6 +6,7 @@ import { Dialog, DialogContent, DialogDescription, DialogHeader, DialogTitle, Di
 import { PokemonEvolves } from "@/types/PokemonEvolves";
 // import { PokemonEvolvesImg } from "@/types/PokemonEvolvesImg";
 import { FormatEvolution } from "@/utils/FormatEvolution";
+import { StatusBase } from "../StatusBase";
 
 type Props = {
     url: string;
@@ -89,7 +90,7 @@ export const Pokemon = ({ url }: Props) => {
                                         </div>
                                     </div>
                                 </DialogTrigger>
-                                <DialogContent className="bg-zinc-800 text-white border-none max-h-screen my-3 overflow-y-auto w-11/12 sm:w-2/3 p-0 rounded text-xl">
+                                <DialogContent className="bg-zinc-800 text-white border-none max-h-[calc(100vh-4rem)] my-3 overflow-y-auto w-11/12 sm:w-2/3 p-0 rounded text-xl">
                                     <DialogHeader>
                                         <DialogTitle className={`flex flex-col pt-6 items-center rounded-b-3xl`}>
                                             <div className="flex justify-between w-full p-4 ">
@@ -122,34 +123,10 @@ export const Pokemon = ({ url }: Props) => {
                                             </div>
                                             <div className="w-full text-center px-4">
                                                 <h3 className="text-xl text-white pt-6 py-2">Status Base</h3>
-                                                <div className="flex items-center">
-                                                    <span className="w-10 py-2 border-r-2 border-zinc-600">HP</span>
-                                                    <span className="w-8 ml-3">{pokeInfo.stats[0].base_stat}</span>
-                                                    <div className="flex-1 ml-3 bg-gray-200 rounded-full h-3 dark:bg-gray-700 overflow-x-hidden">
-                                                        <div className={`${pokeInfo.types[0].type.name} b h-3 rounded-full`} style={{ width: `${pokeInfo.stats[0].base_stat}%` }} ></div>
-                                                    </div>
-                                                </div>
-                                                <div className="flex items-center">
-                                                    <span className="w-10 py-2 border-r-2 border-zinc-600">ATK</span>
-                                                    <span className="w-8 ml-3">{pokeInfo.stats[1].base_stat}</span>
-                                                    <div className="flex-1 ml-3 bg-gray-200 rounded-full h-3 dark:bg-gray-700 overflow-x-hidden">
-                                                        <div className={`${pokeInfo.types[0].type.name} b h-3 rounded-full`} style={{ width: `${pokeInfo.stats[1].base_stat}%` }} ></div>
-                                                    </div>
-                                                </div>
-                                                <div className="flex items-center">
-                                                    <span className="w-10 py-2 border-r-2 border-zinc-600">DEF</span>
-                                                    <span className="w-8 ml-3"> {pokeInfo.stats[2].base_stat} </span>
-                                                    <div className="flex-1 ml-3 bg-gray-200 rounded-full h-3 dark:bg-gray-700 overflow-x-hidden">
-                                                        <div className={`${pokeInfo.types[0].type.name} b h-3 rounded-full`} style={{ width: `${pokeInfo.stats[2].base_stat}%` }} ></div>
-                                                    </div>
-                                                </div>
-                                                <div className="flex items-center">
-                                                    <span className="w-10 py-2 border-r-2 border-zinc-600">SPD</span>
-                                                    <span className="w-8 ml-3">{pokeInfo.stats[5].base_stat}</span>
-                                                    <div className="flex-1 ml-3 bg-gray-200 rounded-full h-3 dark:bg-gray-700 overflow-x-hidden">
-                                                        <div className={`${pokeInfo.types[0].type.name} b h-3 rounded-full`} style={{ width: `${pokeInfo.stats[5].base_stat}%` }} ></div>
-                                                    </div>
-                                                </div>
+                                                <StatusBase title={'HP'} baseStat={pokeInfo.stats[0].base_stat} nameType={pokeInfo.types[0].type.name} />
+                                                <StatusBase title={'ATK'} baseStat={pokeInfo.stats[1].base_stat} nameType={pokeInfo.types[0].type.name} />
+                                                <StatusBase title={'DEF'} baseStat={pokeInfo.stats[2].base_stat} nameType={pokeInfo.types[0].type.name} />
+                                                <StatusBase title={'SPD'} baseStat={pokeInfo.stats[5].base_stat} nameType={pokeInfo.types[0].type.name} />
                                             </div>
                                             {currentEvolve &&
                                                 <>
