@@ -88,8 +88,9 @@ export const Pokemon = ({ url }: Props) => {
                                             {!pokeInfo.sprites.other.dream_world.front_default &&
                                                 <img src={pokeInfo.sprites.other.home.front_default} className="drop-shadow-[2px_6px_1px_rgba(0,0,0,0.3)] " />
                                             }
-
-                                            {/* <img src={pokeInfo.sprites.other.dream_world.front_default} className="drop-shadow-[2px_6px_1px_rgba(0,0,0,0.3)] " /> */}
+                                            {!pokeInfo.sprites.other.dream_world.front_default && !pokeInfo.sprites.other.home.front_default &&
+                                                <img src={pokeInfo.sprites.other["official-artwork"].front_default} className="drop-shadow-[2px_6px_1px_rgba(0,0,0,0.3)] " />
+                                            }
                                         </div>
                                     </div>
                                 </DialogTrigger>
@@ -101,12 +102,14 @@ export const Pokemon = ({ url }: Props) => {
                                                 <span className="font-semibold text-xl">#{pokeInfo.id}</span>
                                             </div>
                                             <div className="w-full flex items-center justify-center px-4 max-h-40">
-                                                {/* <img src={pokeInfo.sprites.other.dream_world.front_default} className="drop-shadow-[2px_6px_1px_rgba(0,0,0,0.3)] max-w-36 sm:max-w-40" /> */}
                                                 {pokeInfo.sprites.other.dream_world.front_default &&
                                                     <img src={pokeInfo.sprites.other.dream_world.front_default} className="drop-shadow-[2px_6px_1px_rgba(0,0,0,0.3)] max-w-36 sm:max-w-40" />
                                                 }
                                                 {!pokeInfo.sprites.other.dream_world.front_default &&
                                                     <img src={pokeInfo.sprites.other.home.front_default} className="drop-shadow-[2px_6px_1px_rgba(0,0,0,0.3)] max-w-36 sm:max-w-40" />
+                                                }
+                                                {!pokeInfo.sprites.other.dream_world.front_default && !pokeInfo.sprites.other.home.front_default &&
+                                                    <img src={pokeInfo.sprites.other["official-artwork"].front_default} className="drop-shadow-[2px_6px_1px_rgba(0,0,0,0.3)] max-w-36 sm:max-w-40" />
                                                 }
                                             </div>
                                         </DialogTitle>
@@ -156,8 +159,6 @@ export const Pokemon = ({ url }: Props) => {
                                                                                     <FormatEvolution key={key} data={ev} />
                                                                                 ))
                                                                             }
-                                                                            {/* <FormatEvolution data={evol1.evolution_details[key]} /> */}
-
                                                                             <div key={key} className="flex flex-col items-center justify-between">
                                                                                 <img src={`https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/dream-world/${evol1.species.url.substring(42, 47).replace('/', '')}.svg`} className="h-14" />
                                                                                 <h4 className="capitalize">{evol1.species.name}</h4>

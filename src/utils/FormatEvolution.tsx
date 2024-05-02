@@ -40,8 +40,8 @@ export const FormatEvolution = ({ data }: Props) => {
         <>
             {fullReturn &&
                 <div className="text-sm text-zinc-400 capitalize flex flex-col items-center">
-                    {fullReturn}
-                    <div className="w-0.5 border-r-2 flex-1 mt-9"> </div>
+                    <span className="mt-9">{fullReturn}</span>
+                    <div className="w-0.5 border-r-2 flex-1"> </div>
                 </div>
             }
         </>

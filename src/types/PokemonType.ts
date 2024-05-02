@@ -19,6 +19,9 @@ export type PokemonType = {
             },
             home: {
                 front_default: string;
+            },
+            'official-artwork': {
+                front_default: string;
             }
         }
     };
