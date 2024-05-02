@@ -57,10 +57,6 @@ export const Pokemon = ({ url }: Props) => {
         setShowPokemonDetail(!showPokemonDetail);
     }
 
-    // const handlePokemonPicture = (name: string) => {
-    //     const picture = getPokemonPicture(name);
-    // }
-
     return (
         <>
             {loading &&
@@ -86,93 +82,113 @@ export const Pokemon = ({ url }: Props) => {
                                             <p className="text-blue-800 font-semibold text-xl text-left">#{parseInt(pokeInfo.id)}</p>
                                         </div>
                                         <div className="w-36 sm:w-40 flex items-center justify-center">
-                                            <img src={pokeInfo.sprites.other.dream_world.front_default} className="drop-shadow-[2px_6px_1px_rgba(0,0,0,0.3)] " />
+                                            {pokeInfo.sprites.other.dream_world.front_default &&
+                                                <img src={pokeInfo.sprites.other.dream_world.front_default} className="drop-shadow-[2px_6px_1px_rgba(0,0,0,0.3)] " />
+                                            }
+                                            {!pokeInfo.sprites.other.dream_world.front_default &&
+                                                <img src={pokeInfo.sprites.other.home.front_default} className="drop-shadow-[2px_6px_1px_rgba(0,0,0,0.3)] " />
+                                            }
+
+                                            {/* <img src={pokeInfo.sprites.other.dream_world.front_default} className="drop-shadow-[2px_6px_1px_rgba(0,0,0,0.3)] " /> */}
                                         </div>
                                     </div>
                                 </DialogTrigger>
                                 <DialogContent className="bg-zinc-800 text-white border-none max-h-[calc(100vh-4rem)] my-3 overflow-y-auto w-11/12 sm:w-2/3 p-0 rounded text-xl">
                                     <DialogHeader>
                                         <DialogTitle className={`flex flex-col pt-6 items-center rounded-b-3xl`}>
-                                            <div className="flex justify-between w-full p-4 ">
+                                            <div className="flex justify-between w-full pt-6 p-4 ">
                                                 <h2 className="text-2xl capitalize">{pokeInfo.name}</h2>
                                                 <span className="font-semibold text-xl">#{pokeInfo.id}</span>
                                             </div>
                                             <div className="w-full flex items-center justify-center px-4 max-h-40">
-                                                <img src={pokeInfo.sprites.other.dream_world.front_default} className="drop-shadow-[2px_6px_1px_rgba(0,0,0,0.3)] max-w-36 sm:max-w-40" />
+                                                {/* <img src={pokeInfo.sprites.other.dream_world.front_default} className="drop-shadow-[2px_6px_1px_rgba(0,0,0,0.3)] max-w-36 sm:max-w-40" /> */}
+                                                {pokeInfo.sprites.other.dream_world.front_default &&
+                                                    <img src={pokeInfo.sprites.other.dream_world.front_default} className="drop-shadow-[2px_6px_1px_rgba(0,0,0,0.3)] max-w-36 sm:max-w-40" />
+                                                }
+                                                {!pokeInfo.sprites.other.dream_world.front_default &&
+                                                    <img src={pokeInfo.sprites.other.home.front_default} className="drop-shadow-[2px_6px_1px_rgba(0,0,0,0.3)] max-w-36 sm:max-w-40" />
+                                                }
                                             </div>
                                         </DialogTitle>
-                                        <DialogDescription className={`flex flex-col justify-center items-center`}>
-                                            <p className="capitalize text-white bg-poke flex justify-around text-xl pb-3">
-                                                {pokeInfo.types.map((type, key) => (
-                                                    <span key={key} className={`block my-2 w-max rounded-lg p-1 px-2 shadow-lg ${type.type.name} }`}>{type.type.name}</span>
-                                                ))}
-                                            </p>
-                                            <div className="w-full flex justify-between px-4">
-                                                <div className="flex-1 text-center border-r-2 border-zinc-600 ">
-                                                    <p className="text-xl text-white py-2">{(pokeInfo.height / 10).toFixed(1).replace('.', ',')} m </p>
-                                                    <span>Height</span>
-                                                </div>
-                                                <div className="flex-1 text-center border-r-2 border-zinc-600">
-                                                    <p className="text-xl text-white py-2"> {(pokeInfo.weight / 10).toFixed(1).replace('.', ',')} kg </p>
-                                                    <span>Weight</span>
-                                                </div>
-                                                <div className="flex-1 text-center">
-                                                    <p className="text-xl text-white py-2">{pokeInfo.base_experience} </p>
-                                                    <span>Exp base</span>
-                                                </div>
-                                            </div>
-                                            <div className="w-full text-center px-4">
-                                                <h3 className="text-xl text-white pt-6 py-2">Status Base</h3>
-                                                <StatusBase title={'HP'} baseStat={pokeInfo.stats[0].base_stat} nameType={pokeInfo.types[0].type.name} />
-                                                <StatusBase title={'ATK'} baseStat={pokeInfo.stats[1].base_stat} nameType={pokeInfo.types[0].type.name} />
-                                                <StatusBase title={'DEF'} baseStat={pokeInfo.stats[2].base_stat} nameType={pokeInfo.types[0].type.name} />
-                                                <StatusBase title={'SPD'} baseStat={pokeInfo.stats[5].base_stat} nameType={pokeInfo.types[0].type.name} />
-                                            </div>
-                                            {currentEvolve &&
-                                                <>
-                                                    <h3 className="text-xl text-white pt-6 py-2">Evolution</h3>
-                                                    <div className="w-full text-white text-center px-4 pt-4 pb-8 flex flex-wrap gap-2 justify-around text-base md:text-xl">
-                                                        <>
-                                                            <div className="flex flex-col items-center justify-between">
-                                                                <img src={`https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/dream-world/${currentEvolve.chain.species.url.substring(42, 47).replace('/', '')}.svg`} className="h-14" />
-                                                                <h4 className="capitalize">{currentEvolve.chain.species.name}</h4>
-                                                                <span> #{currentEvolve.chain.species.url.substring(42, 47).replace('/', '')} </span>
-                                                            </div>
-                                                            {currentEvolve.chain.evolves_to.length > 0 &&
-                                                                currentEvolve.chain.evolves_to.map((evol1, key) => (
-                                                                    <>
-                                                                        <FormatEvolution data={evol1.evolution_details[key]} />
-                                                                        <div key={key} className="flex flex-col items-center justify-between">
-                                                                            <img src={`https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/dream-world/${evol1.species.url.substring(42, 47).replace('/', '')}.svg`} className="h-14" />
-                                                                            <h4 className="capitalize">{evol1.species.name}</h4>
-                                                                            <span>#{evol1.species.url.substring(42, 47).replace('/', '')}</span>
-                                                                        </div>
-                                                                        {evol1.evolves_to.length > 0 &&
-                                                                            evol1.evolves_to.map((evol2, key) => (
-                                                                                <>
-                                                                                    <FormatEvolution data={evol2.evolution_details[key]} />
-                                                                                    <div key={key} className="flex flex-col items-center justify-between">
-                                                                                        <img src={`https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/dream-world/${evol2.species.url.substring(42, 47).replace('/', '')}.svg`} className="h-14" />
-                                                                                        <h4 className="capitalize py-1">{evol2.species.name}</h4>
-                                                                                        <span>#{evol2.species.url.substring(42, 47).replace('/', '')}</span>
-                                                                                    </div >
-                                                                                </>
-                                                                            ))
-                                                                        }
-                                                                    </>
-
-                                                                ))
-                                                            }
-                                                        </>
+                                        <DialogDescription asChild className={`flex flex-col justify-center items-center`}>
+                                            <div>
+                                                <p className="capitalize text-white bg-poke flex justify-around text-xl pb-3">
+                                                    {pokeInfo.types.map((type, key) => (
+                                                        <span key={key} className={`block my-2 w-max rounded-lg p-1 px-2 shadow-lg ${type.type.name} }`}>{type.type.name}</span>
+                                                    ))}
+                                                </p>
+                                                <div className="w-full flex justify-between px-4">
+                                                    <div className="flex-1 text-center border-r-2 border-zinc-600 ">
+                                                        <p className="text-xl text-white py-2">{(pokeInfo.height / 10).toFixed(1).replace('.', ',')} m </p>
+                                                        <span>Height</span>
                                                     </div>
-                                                </>
-                                            }
-                                            {!currentEvolve &&
-                                                <div className="w-full text-center px-4">
-                                                    <h3 className="text-xl text-white pt-6 py-2">No Evolutions</h3>
+                                                    <div className="flex-1 text-center border-r-2 border-zinc-600">
+                                                        <p className="text-xl text-white py-2"> {(pokeInfo.weight / 10).toFixed(1).replace('.', ',')} kg </p>
+                                                        <span>Weight</span>
+                                                    </div>
+                                                    <div className="flex-1 text-center">
+                                                        <p className="text-xl text-white py-2">{pokeInfo.base_experience} </p>
+                                                        <span>Exp base</span>
+                                                    </div>
                                                 </div>
-                                            }
+                                                <div className="w-full text-center px-4">
+                                                    <h3 className="text-xl text-white pt-6 py-2">Status Base</h3>
+                                                    <StatusBase title={'HP'} baseStat={pokeInfo.stats[0].base_stat} nameType={pokeInfo.types[0].type.name} />
+                                                    <StatusBase title={'ATK'} baseStat={pokeInfo.stats[1].base_stat} nameType={pokeInfo.types[0].type.name} />
+                                                    <StatusBase title={'DEF'} baseStat={pokeInfo.stats[2].base_stat} nameType={pokeInfo.types[0].type.name} />
+                                                    <StatusBase title={'SPD'} baseStat={pokeInfo.stats[5].base_stat} nameType={pokeInfo.types[0].type.name} />
+                                                </div>
+                                                {currentEvolve &&
+                                                    <>
+                                                        <h3 className="text-xl text-white pt-6 py-2">Evolution</h3>
+                                                        <div className="w-full text-white text-center px-4 pt-4 pb-8 flex flex-wrap gap-2 justify-around text-base md:text-xl">
+                                                            <>
+                                                                <div className="flex flex-col items-center justify-between">
+                                                                    <img src={`https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/dream-world/${currentEvolve.chain.species.url.substring(42, 47).replace('/', '')}.svg`} className="h-14" />
+                                                                    <h4 className="capitalize">{currentEvolve.chain.species.name}</h4>
+                                                                    <span> #{currentEvolve.chain.species.url.substring(42, 47).replace('/', '')} </span>
+                                                                </div>
+                                                                {currentEvolve.chain.evolves_to.length > 0 &&
+                                                                    currentEvolve.chain.evolves_to.map((evol1, key) => (
+                                                                        <>
+                                                                            {evol1.evolution_details.length > 0 &&
+                                                                                evol1.evolution_details.map((ev, key) => (
+                                                                                    <FormatEvolution key={key} data={ev} />
+                                                                                ))
+                                                                            }
+                                                                            {/* <FormatEvolution data={evol1.evolution_details[key]} /> */}
 
+                                                                            <div key={key} className="flex flex-col items-center justify-between">
+                                                                                <img src={`https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/dream-world/${evol1.species.url.substring(42, 47).replace('/', '')}.svg`} className="h-14" />
+                                                                                <h4 className="capitalize">{evol1.species.name}</h4>
+                                                                                <span>#{evol1.species.url.substring(42, 47).replace('/', '')}</span>
+                                                                            </div>
+                                                                            {evol1.evolves_to.length > 0 &&
+                                                                                evol1.evolves_to.map((evol2, key) => (
+                                                                                    <>
+                                                                                        <FormatEvolution data={evol2.evolution_details[key]} />
+                                                                                        <div key={key} className="flex flex-col items-center justify-between">
+                                                                                            <img src={`https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/dream-world/${evol2.species.url.substring(42, 47).replace('/', '')}.svg`} className="h-14" />
+                                                                                            <h4 className="capitalize py-1">{evol2.species.name}</h4>
+                                                                                            <span>#{evol2.species.url.substring(42, 47).replace('/', '')}</span>
+                                                                                        </div >
+                                                                                    </>
+                                                                                ))
+                                                                            }
+                                                                        </>
+
+                                                                    ))
+                                                                }
+                                                            </>
+                                                        </div>
+                                                    </>
+                                                }
+                                                {!currentEvolve &&
+                                                    <div className="w-full text-center px-4">
+                                                        <h3 className="text-xl text-white pt-6 py-2">No Evolutions</h3>
+                                                    </div>
+                                                }
+                                            </div>
                                         </DialogDescription>
                                     </DialogHeader>
                                 </DialogContent>

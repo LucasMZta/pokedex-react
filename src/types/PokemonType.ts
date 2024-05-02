@@ -16,6 +16,9 @@ export type PokemonType = {
         other: {
             dream_world: {
                 front_default: string;
+            },
+            home: {
+                front_default: string;
             }
         }
     };

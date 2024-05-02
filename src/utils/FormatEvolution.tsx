@@ -1,4 +1,3 @@
-
 type Props = {
     data: {
         item: { name: string; }
@@ -14,10 +13,19 @@ export const FormatEvolution = ({ data }: Props) => {
         if (param) {
             switch (param) {
                 case 'level-up':
-                    return data.min_happiness ? `Happiness ${data.min_happiness}` : `Level ${data.min_level}`;
+                    if (data.min_happiness) {
+                        return `Happiness ${data.min_happiness}`
+                    } else if (data.min_level) {
+                        return `Level ${data.min_level}`
+                    } else {
+                        return undefined
+                    }
                     break;
                 case 'use-item':
-                    return data.item.name;
+                    return data.item.name
+                    break;
+                case '':
+                    return 'No info'
                     break;
                 default:
                     return data.trigger.name;
@@ -25,17 +33,17 @@ export const FormatEvolution = ({ data }: Props) => {
             }
         }
     }
-    ''
 
+    const fullReturn = renderSwitch(data.trigger.name);
 
     return (
-        <div className="text-sm text-zinc-400 capitalize flex flex-col items-center">
-            <>
-                {renderSwitch(data.trigger.name)}
-            </>
-            <div className="w-0.5 border-r-2 flex-1 mt-9">
-
-            </div>
-        </div>
+        <>
+            {fullReturn &&
+                <div className="text-sm text-zinc-400 capitalize flex flex-col items-center">
+                    {fullReturn}
+                    <div className="w-0.5 border-r-2 flex-1 mt-9"> </div>
+                </div>
+            }
+        </>
     )
 }
