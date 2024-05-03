@@ -3,55 +3,8 @@ import './App.css'
 import { getAllPokemons } from './data/api'
 import { UrlType } from './types/PokemonType';
 import { Pokemon } from './components/Pokemon/App';
-import { Wifi, WifiOff, X } from 'lucide-react';
 
 function App() {
-
-
-  const wrapperOffline = document.querySelector('.wrapper.offline');
-  const wrapperOnline = document.querySelector('.wrapper.online');
-
-  window.onload = () => {
-    function ajax() {
-      const xhr = new XMLHttpRequest(); //creating new XML Object
-      xhr.open('GET', 'https://jsonplaceholder.typicode.com/posts', true); //sendind get request on this url
-      xhr.onload = () => {
-        //if status is equal to 200 or less than 300 that mean user is getting data from that privided utl
-        //if response status is 200 that means is online
-        if (xhr.status === 200 && xhr.status < 300) {
-          const hide = wrapperOffline?.classList.contains('hide');
-
-          if (!hide) {
-            wrapperOnline?.classList.remove('hide');
-          }
-
-          setTimeout(() => {
-            wrapperOffline?.classList.add('hide');
-            wrapperOnline?.classList.add('hide');
-          }, 5000);
-
-        } else {
-          offline();
-        }
-      }
-      xhr.onerror = () => {
-        offline();
-      }
-      xhr.send();
-    }
-
-    const offline = () => {
-      wrapperOffline?.classList.remove('hide');
-    }
-
-    setInterval(() => {
-      ajax();
-    }, 100);
-
-  }
-
-
-
 
   const [pokemons, setPokemons] = useState<UrlType[]>([]);
   const [filteredPokemons, setFilteredPokemons] = useState<UrlType[]>([])
@@ -99,35 +52,6 @@ function App() {
 
   return (
     <div className='bg-zinc-950/90 min-h-screen text-white'>
-
-
-      <div className={`wrapper offline hide`}>
-        <div className="toast offline">
-          <div className="content">
-            <div className="icon"> <WifiOff /> </div>
-            <div className="details text-zinc-500">
-              <span> Você está offline </span>
-              <p>Conexão perdida</p>
-            </div>
-            <div className="close-icon"> <X /></div>
-          </div>
-        </div>
-      </div>
-
-      <div className={`wrapper online hide`}>
-        <div className="toast">
-          <div className="content">
-            <div className="icon"> <Wifi /> </div>
-            <div className="details text-zinc-500">
-              <span> Você está online </span>
-              <p>Conexão reestabelecida</p>
-            </div>
-            <div className="close-icon"> <X /> </div>
-          </div>
-        </div>
-      </div>
-
-
 
       <div className='mx-auto px-6 lg:px-16 min-h-screen'>
         <header className='flex flex-col md:flex-row justify-between items-center py-8'>

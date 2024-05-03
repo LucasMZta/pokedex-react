@@ -4,7 +4,6 @@ import { PokemonType } from "../../types/PokemonType";
 import './styles.css'
 import { Dialog, DialogContent, DialogDescription, DialogHeader, DialogTitle, DialogTrigger } from "../ui/dialog";
 import { PokemonEvolves } from "@/types/PokemonEvolves";
-// import { PokemonEvolvesImg } from "@/types/PokemonEvolvesImg";
 import { FormatEvolution } from "@/utils/FormatEvolution";
 import { StatusBase } from "../StatusBase";
 
@@ -19,7 +18,6 @@ export const Pokemon = ({ url }: Props) => {
     const [showPokemonDetail, setShowPokemonDetail] = useState(false);
     const [open, setOpen] = useState(false);
     const [currentEvolve, setCurrentEvolte] = useState<PokemonEvolves>();
-    // const [currentImage, setCurrentImage] = useState<PokemonEvolvesImg>()
 
     const LoadPokemon = async (fullURL: string) => {
         setLoading(true);
@@ -40,7 +38,6 @@ export const Pokemon = ({ url }: Props) => {
         if (open) {
             const id = fullURL.substring(34, 39).replace('/', '');
             const json = await getEvolves(id);
-            console.log(json);
             setCurrentEvolte(json);
         }
     }
